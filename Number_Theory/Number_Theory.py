@@ -68,8 +68,6 @@ def sieve_of_eratosthenes(limit):
     return prime
 
 
-
-
 def pandigital(number):
     num_str = str(number)
     digit_set = set(num_str)  # unique digits in the number
@@ -80,3 +78,25 @@ def is_palindrome(number):
     s = str(number)
     return s == s[::-1]  # Compare string with its reverse
 
+
+
+def phi(n, prime):
+    if prime[n]:  # Direct check if 'n' is prime
+        return n - 1
+
+    result = n
+    
+    for i in range(2, int(sqrt(n)) + 1):
+        if n % i == 0:
+            if prime[i]:
+                result *= (1 - Fraction(1, i))
+            if i != n // i and prime[n // i]:
+                result *= (1 - Fraction(1, n // i))
+    return int(result)
+
+
+limit = 100  # Set a suitable limit for the sieve
+crible = sieve_of_eratosthenes(limit)
+n = 36
+result = phi(n, crible)
+print("Euler's Totient Function of", n, "is", result)

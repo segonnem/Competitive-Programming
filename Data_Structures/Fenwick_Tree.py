@@ -27,4 +27,6 @@ ft.update(1, 5)
 ft.update(2, 3)  
 ft.update(3, 7) 
 
+print("Sum of first 3 elements:", ft.query(3))  # Output: 15
+print("Sum of elements from 2 to 3:", ft.range_query(2, 3))  # Output: 10
 

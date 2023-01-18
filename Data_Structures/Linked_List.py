@@ -145,8 +145,6 @@ def has_cycle(head):
     return False
 
 
-
-# Example Usage
 llist = LinkedList()
 llist.append(1)
 llist.append(2)
@@ -172,3 +170,5 @@ while node.next:
     node = node.next
 node.next = cycle_list.head  # creating a cycle
 print("Has Cycle:", has_cycle(cycle_list.head))
+
+

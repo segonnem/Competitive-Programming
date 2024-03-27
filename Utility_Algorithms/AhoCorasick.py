@@ -1,62 +1,65 @@
-class TrieNode:
-    def __init__(self):
-        self.children = {}
-        self.fail = None  # Failure link
-        self.output = []
-
 class AhoCorasick:
-    def __init__(self, keywords):
-        self.root = TrieNode()
-        self.build_trie(keywords)
-        self.build_failure_links()
+    class TrieNode:
+        def __init__(self):
+            self.children = {}
+            self.fail = None 
+            self.output = []  
 
-    def build_trie(self, keywords):
-        for keyword in keywords:
-            current = self.root
-            for char in keyword:
-                if char not in current.children:
-                    current.children[char] = TrieNode()
-                current = current.children[char]
-            current.output.append(keyword)
+    def __init__(self, patterns):
+        self.root = self.TrieNode()
+        self.patterns = patterns
+        self._build_trie()
+        self._build_failure_links()
 
-    def build_failure_links(self):
+    def _build_trie(self):
+        # Build the trie for the set of patterns
+        for index, pattern in enumerate(self.patterns):
+            node = self.root
+            for symbol in pattern:
+                if symbol not in node.children:
+                    node.children[symbol] = self.TrieNode()
+                node = node.children[symbol]
+            node.output.append(index)
+
+    def _build_failure_links(self):
+        # Build failure links using BFS
         from collections import deque
         queue = deque()
-        
-        # Initial setting of failure links for first level children of root
-        for char, node in self.root.children.items():
+        for node in self.root.children.values():
             node.fail = self.root
             queue.append(node)
-        
         while queue:
-            current = queue.popleft()
+            current_node = queue.popleft()
 
-            # Set the failure link for each child
-            for char, child_node in current.children.items():
+            for symbol, child_node in current_node.children.items():
                 queue.append(child_node)
-                fail = current.fail
-                while fail is not None and char not in fail.children:
-                    fail = fail.fail
-                child_node.fail = fail.children[char] if fail and char in fail.children else self.root
+                fail_node = current_node.fail
+                while fail_node is not None and symbol not in fail_node.children:
+                    fail_node = fail_node.fail
+                child_node.fail = fail_node.children[symbol] if fail_node else self.root
                 if child_node.fail:
                     child_node.output.extend(child_node.fail.output)
 
     def search(self, text):
-        current = self.root
+        node = self.root
         results = []
-        for index, char in enumerate(text):
-            while current is not self.root and char not in current.children:
-                current = current.fail
-            if char in current.children:
-                current = current.children[char]
-            else:
+        for i, symbol in enumerate(text):
+            while node is not None and symbol not in node.children:
+                node = node.fail
+            if node is None:
+                node = self.root
                 continue
-
-            if current.output:
-                for pattern in current.output:
-                    results.append((index - len(pattern) + 1, pattern))
-
+            node = node.children[symbol]
+            if node.output:
+                for pattern_idx in node.output:
+                    start_idx = i - len(self.patterns[pattern_idx]) + 1
+                    results.append((start_idx, self.patterns[pattern_idx]))
         return results
 
 
+patterns = ['he', 'she', 'his', 'hers']
+text = 'ahishers'
+ahocorasick = AhoCorasick(patterns)
+found_patterns = ahocorasick.search(text)
+print("Found patterns:", found_patterns)
 

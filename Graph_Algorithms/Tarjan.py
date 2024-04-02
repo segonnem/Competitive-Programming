@@ -37,6 +37,7 @@ def tarjan(graph):
 
     return result
 
+
 graph = {
     1: [2],
     2: [3],

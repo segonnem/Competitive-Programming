@@ -32,4 +32,4 @@ def rabin_karp(text, patterns):
 
 text = "abcxabcdabcdabcyabcdabcxabcd"
 patterns = ["abcdabcy", "abcxabcd", "abcdabcx"]
-print(rabin_karp(text, patterns))
+print(rabin_karp(text, patterns)) #O(n+m)

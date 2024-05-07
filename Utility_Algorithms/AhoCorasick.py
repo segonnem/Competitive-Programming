@@ -61,5 +61,5 @@ patterns = ['he', 'she', 'his', 'hers']
 text = 'ahishers'
 ahocorasick = AhoCorasick(patterns)
 found_patterns = ahocorasick.search(text)
-print("Found patterns:", found_patterns)
+print("Found patterns:", found_patterns) #perform in O(n+m) instead of naive O(nm)
 

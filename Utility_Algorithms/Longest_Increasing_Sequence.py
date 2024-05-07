@@ -40,5 +40,9 @@ def longest_increasing_subsequence(a):
     return length_LIS, lis
 
 
+#test
+N,subseq = longest_increasing_subsequence([1,99,100,2,3,4,99,100,2,6,9,10])
+print(N,subseq)
+
 
 #Note L --> (-1)*L for decreasing sequence

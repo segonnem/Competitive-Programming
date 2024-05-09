@@ -50,10 +50,19 @@ class Treap:
     def inorder(self):
         return self._inorder(self.root)
 
-# Test code for Treap
+# test + priority
 treap = Treap()
-keys = [5, 3, 8, 1, 7]
-for key in keys:
+
+keys_with_priorities = [(5, 20), (3, 30), (8, 10), (1, 40), (7, 25)]
+for key, priority in keys_with_priorities:
+    treap.insert(key, priority)
+
+print("Inorder traversal of the Treap after specific priorities:", treap.inorder())
+
+# Test with sequential keys to check BST properties
+sequential_keys = [10, 20, 30, 40, 50]
+for key in sequential_keys:
     treap.insert(key)
 
-print("Inorder traversal of the Treap:", treap.inorder())
+print("Inorder traversal of the Treap with sequential keys:", treap.inorder())
+

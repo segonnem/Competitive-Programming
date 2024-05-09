@@ -1,4 +1,4 @@
-#Competitive Programming Repository
+ # Competitive Programming Repository
 
 This repository is where I store all the algorithms and data structures I use or might use in algorithm competitions.
 

@@ -8,9 +8,9 @@ def bfs(capacity, source, sink, parent):
     while queue:
         u = queue.popleft()
         
-        for v in capacity[u]:  # Itérer sur les clés du dictionnaire (les sommets)
-            cap = capacity[u][v]  # Accéder à la capacité comme valeur du dictionnaire
-            if v not in visited and cap > 0:  # Vérifier la capacité résiduelle
+        for v in capacity[u]:  # parse each keys
+            cap = capacity[u][v]  
+            if v not in visited and cap > 0:
                 queue.append(v)
                 visited.add(v)
                 parent[v] = u
@@ -22,7 +22,7 @@ def ford_fulkerson(capacity, source, sink):
     parent = {}
     max_flow = 0
     
-    while bfs(capacity, source, sink, parent):  # Utilisation directe du graphe sans transformation
+    while bfs(capacity, source, sink, parent): 
         path_flow = float('Inf')
         s = sink
         
@@ -30,19 +30,18 @@ def ford_fulkerson(capacity, source, sink):
             path_flow = min(path_flow, capacity[parent[s]][s])
             s = parent[s]
         
-        # Mise à jour des capacités résiduelles du réseau
+        # MAJ
         v = sink
         while v != source:
             u = parent[v]
             capacity[u][v] -= path_flow
-            capacity[v][u] = capacity.get(v, {}).get(u, 0) + path_flow  # Ajouter la capacité inverse si nécessaire
+            capacity[v][u] = capacity.get(v, {}).get(u, 0) + path_flow  # add inv capacity if needed
             v = u
         
         max_flow += path_flow
     
     return max_flow
 
-# Exemple de graphe utilisant un dictionnaire de dictionnaires
 graph = {
     'A': {'B': 10, 'C': 5},
     'B': {'C': 15, 'D': 9},

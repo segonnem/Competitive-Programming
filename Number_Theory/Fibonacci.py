@@ -18,7 +18,7 @@ def fibonacci(n):
     return v * u1 + q
   return u * v
 
-
+#O(n), code from Stack-overflow
 
 '''Compute F_n in O(logn)'''
 
@@ -34,7 +34,6 @@ def matrix_power(matrix, n):
     base = matrix
 
     while n > 0:
-        # If n is odd, multiply the base matrix with the result
         if n % 2 == 1:
             result = matrix_mult(result, base)
         # Square the matrix and halve n

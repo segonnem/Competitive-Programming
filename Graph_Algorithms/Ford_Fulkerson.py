@@ -53,5 +53,5 @@ graph = {
 source = 'A'
 sink = 'Sink'
 
-print("Le flot maximal est :", ford_fulkerson(graph, source, sink))
+print("Max Flow is :", ford_fulkerson(graph, source, sink))
 
